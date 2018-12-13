@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Hand Coded SVG</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                background: #fff;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            .gone {
+                display: none;
+            }
+            li {
+                list-style-type: none;
+            }
+            a{
+                color:#fff;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- demo1 -->
+        <div style="width:430px;overflow:hidden;padding: 20px;border-radius: 20px;background:#e66ab8;">
+            <div style="float:left"><strong>间隔文字上下滚动效果：</strong></div>
+            <div id="demo1" style="overflow:hidden;height:22px;line-height:22px;">
+                <ul class="mingdan" id="holder" style="margin-top:0;">
+                    <li><a href="#" target="_blank">aaaaaa</a></li>
+                    <li><a href="#" target="_blank">bbbbbb</a></li>
+                    <li><a href="#" target="_blank">cccccc</a></li>
+                    <li><a href="#" target="_blank">dddddd</a></li>
+                    <li><a href="#" target="_blank">eeeeee</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <style>
+            .myscroll{
+                width: 200px;
+                height: 100px;
+                border: 1px solid #e66ab8;
+                margin-top: 40px;
+                padding: 0 20px;
+                overflow: hidden;
+            }
+            .myscroll li{
+                height: 24px;
+                line-height: 24px;
+            }
+        </style>
+        <!-- demo2 无缝上下滚动 -->
+        <div class="myscroll">
+            <ul>
+                <li>第一条动态</li>
+                <li>第二条动态</li>
+                <li>第三条动态</li>
+                <li>第四条动态</li>
+                <li>第五条动态</li>
+                <li>第六条动态</li>
+                <li>第七条动态</li>
+                <li>第八条动态</li>
+                <li>第九条动态</li>
+                <li>第十条动态</li>
+            </ul>
+        </div>
+
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            // demo1
+            function AutoScroll(obj) {
+                $(obj).find("ul:first").animate(
+                    {marginTop: "-22px"},
+                    500,
+                    function() {
+                        $(this).css({
+                            marginTop: "0px"
+                        }).find("li:first").appendTo(this);
+                    }
+                );
+            }
+            $(document).ready(function() {
+                setInterval('AutoScroll("#demo1")', 2000)
+            });
+
+            // demo2
+            // JavaScript Document
+            (function($){
+                $.fn.myScroll = function(options){
+                    //默认配置
+                    var defaults = {
+                        speed:40,  //滚动速度,值越大速度越慢
+                        rowHeight:24 //每行的高度
+                    };
+                    
+                    var opts = $.extend({}, defaults, options),intId = [];
+                    
+                    function marquee(obj, step){
+                        obj.find("ul").animate({
+                            marginTop: '-=1'
+                        },0,function(){
+                            var s = Math.abs(parseInt($(this).css("margin-top")));
+                            if(s >= step){
+                                $(this).find("li").slice(0, 1).appendTo($(this));
+                                $(this).css("margin-top", 0);
+                            }
+                        });
+                    }
+
+                    this.each(function(i){
+                        console.log(i)
+                        var sh = opts["rowHeight"],speed = opts["speed"],_this = $(this);
+                        intId[i] = setInterval(function(){
+                            if(_this.find("ul").height()<=_this.height()){
+                                clearInterval(intId[i]);
+                            }else{
+                                marquee(_this, sh);
+                            }
+                        }, speed);
+
+                        _this.hover(function(){
+                            clearInterval(intId[i]);
+                        },function(){
+                            intId[i] = setInterval(function(){
+                                if(_this.find("ul").height()<=_this.height()){
+                                    clearInterval(intId[i]);
+                                }else{
+                                    marquee(_this, sh);
+                                }
+                            }, speed);
+                        });
+                    
+                    });
+                }
+            })(jQuery);
+                        
+            $(function(){
+                $('.myscroll').myScroll({
+                    speed: 40, //数值越大，速度越慢
+                    rowHeight: 24 //li的高度
+                });
+            });
+        </script>
+    </body>
+</html>
