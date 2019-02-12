@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="//res.1758.com/libs/flex/1.0/flex.min.css"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+        <title>手动滑动小组件</title>
+    </head>
+    <body>
+        <style>
+            html,body{
+                width: 100%;
+                height: 100%;
+            }
+            .wrapper{
+                height: 100%;
+                flex-wrap: nowrap;
+                font-size: 30px;
+                color: #fff;
+                width: 100%;
+                margin-top: 40%;
+            }
+            .wrapper div{
+                width: 100%;
+                height: 200px;
+                flex: 0 0 100%;
+                line-height: 200px;
+                text-align: center;
+            }
+        </style>
+        <div style="width:80%;margin:auto;overflow: auto;">
+            <div class="wrapper" flex id="container">
+                <div style="background: #3b76c0">第一页</div>
+                <div style="background: #58c03b;">第二页</div>
+                <div style="background: #c03b25;">第三页</div>
+                <div style="background: #e0a718;">第四页</div>
+            </div>
+        </div>
+
+        <script>
+            (function(document){
+                var el = '#container';
+                var pageNo = 0;
+                // 当前的位置
+                var currentPosition = 0;
+                // 每次滑动 初始位置
+                var startPosition = 0;
+                // 滑动方向
+                var direction = 'left';
+                // 滑动锁 
+                var touchLock = false;
+                // 手指 按压 开始时间
+                var startTime = 0;
+                // start 手指按压pageX位置
+                var startX;
+                // x 滑动距离 
+                var deltaX = 0;
+
+
+                // 每个item的宽度
+                var itemWidth = 0;
+                // 最大不能超过多少宽度
+                var minWidth = 0;
+                // 容器dom
+                var containerDom = null;
+                
+                init();
+                // 初始化内容
+                function init(){
+                    containerDom =  document.querySelector(el);
+                    // 计算每个item 宽度
+                    itemWidth = containerDom.offsetWidth;
+                    // item 个数
+                    var itemLength = containerDom.querySelectorAll(el + ' > div').length;
+                    // 边界限制宽度
+                    minWidth = - (itemLength-1) * itemWidth;
+                    // 绑定事件
+                    containerDom.addEventListener('touchstart',touchStart,{passive: false});
+                    containerDom.addEventListener('touchmove',touchMove,{passive: false});
+                    containerDom.addEventListener('touchend',touchEnd,{passive: false});
+                }
+                
+                function touchStart(evt){
+                    if(touchLock){return;}
+                    touchLock = true;
+                    evt.preventDefault();
+                    containerDom.style.webkitTransition = ''; // 取消动画效果
+                    // 当前页面的pageX
+                    startX = evt.touches[0].pageX;
+                    // 本次滑动前的初始位置
+                    startPosition = currentPosition;
+                    // 开始时间
+                    startTime = new Date();
+                }
+                
+                function touchMove(evt){
+                    if(!touchLock){return;}
+                    evt.preventDefault();
+                    // 手指滑动距离
+                    deltaX = evt.touches[0].pageX - startX;
+                    // 手指滑动方向判断
+                    direction = deltaX < 0 ? 'left' : 'right';
+                    // 页面需要根据滑动距离进行实时位置变化
+                    var realPosition = startPosition + deltaX;
+                    // 保证在 minWidth 和 0 之间
+                    realPosition = realPosition > 0 ? 0 : (realPosition < minWidth ? minWidth : realPosition)
+                    // 滑动到当前位置
+                    transform(realPosition);
+                }
+    
+                function touchEnd(evt){
+                    if(!touchLock){return;}
+                    evt.preventDefault();
+                    touchLock = false;
+                    // 边界处理  最左边和最右边 无需再次滑动
+                    var deltaT = + new Date() - startTime;
+                    if(pageNo == 0 && direction == 'right' || pageNo == 3 && direction == 'left'){
+                        return ;
+                    }else if(deltaT < 300 || Math.abs(deltaX) > itemWidth/2){
+                        // 小于一定的距离  滑动无效
+                        direction == 'left' ? pageNo += 1: pageNo -= 1;
+                    }
+                    // 设定最后位置
+                    var w = pageNo * itemWidth ;
+                    containerDom.style.webkitTransition = '0.3s ease -webkit-transform';
+                    transform(-w);
+                    
+                }
+    
+                // 页面平移
+                function transform(translate) {
+                    containerDom.style.webkitTransform = 'translate3d(' + translate + 'px, 0, 0)';
+                    currentPosition = translate;
+                }
+            })(document)
+
+        </script>
+    </body>
+</html>
