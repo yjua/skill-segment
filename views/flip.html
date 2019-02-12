@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link
+            rel="stylesheet"
+            href="//res.1758.com/libs/flex/1.0/flex.min.css"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            .element {
+                position: relative;
+                color: #fff;
+                text-align: center;
+                /* 3d效果 */
+                transform-style: preserve-3d;
+                transition: 1s;
+                max-width: 300px;
+                width:80%;
+                margin: auto;
+            }
+            .element img{
+                width: 100%;
+            }
+            .element,
+            .front,
+            .back {
+                width: 200px;
+                height: 200px;
+                /* 背面不可见 */
+                backface-visibility: hidden;
+                background: #f2f2f2;
+            }
+            .front,
+            .back {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .front {
+                background: #f00;
+            }
+            .back {
+                background: #8448ca;
+                transform: rotateY(180deg);
+                line-height: 200px;
+            }
+            .element:hover {
+                transform: rotateY(180deg);
+            }
+            .gone{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="element">
+            <div class="front">
+                <img src="http://images.1758.com/image/20190110/open_104818_fbbc9558addafcccdab34be8e5ab91d7.png" alt="">
+            </div>
+            <div class="back">背面</div>
+        </div>
+    </body>
+</html>
