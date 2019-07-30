@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./dist/index.js"></script>
+</head>
+<body>
+    <style>
+        .main{
+            width: 200px;
+            margin: auto;
+            border: 1px solid red;
+        }
+        .context{
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+        .more{
+            font-size: 12px;
+            color: #894b4b;
+        }
+    </style>
+    请打开f12 查看
+    <div class="main">
+        <div class="context">
+                多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号多行文本溢出显示省略号
+        </div>
+        <div class="more">
+            查看全文
+        </div>
+    </div>
+    <script>
+        SDK.show();
+        SDK.init({
+            age:333,
+            address:'北京 北京'
+        })
+        var obj = {
+            safecode2: 11
+        }
+        var info = {}
+        info.safe = obj.safeCode || obj.safecode || '';
+        console.log(info)
+    </script>
+</body>
+</html>
