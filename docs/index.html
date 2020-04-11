@@ -7,16 +7,57 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <style>
+    section.cover.has-mask .mask{
+      opacity: .8;
+    }
+    .docsify-copy-code-button{
+      font-size: 6px!important;
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '',
-      repo: '',
-      coverpage: true
+      name: '代码片段',
+      repo: 'http://github.com/yjua/skill-segment/',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      coverpage: true,
+      count:{
+        countable:true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'chinese'
+      },
+      search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        paths: 'auto', // or 'auto'
+        placeholder: '搜索',
+        noData: '找不到结果',
+        depth: 3
+      },
+      plugins: [
+        function (hook) {
+          let year = new Date().getFullYear()
+          var footer = [
+            '<hr/>',
+            '<footer>',
+            '<span>@copyright '+year+' Power by docsify',
+            '</footer>'
+          ].join('')
+          hook.afterEach(function (html, next) {
+            next(html + footer);
+          })
+        }
+      ]
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify-copy-code"></script>
+  <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+
 </body>
 </html>

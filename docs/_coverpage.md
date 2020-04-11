@@ -9,6 +9,7 @@
 * 持续更新
 
 [GitHub](https://github.com/yjua/skill-segment/)
-[快速开始](#quick-start)
+[快速开始]()
 
+<!-- ![](https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500) -->
 ![](https://images.pexels.com/photos/747964/pexels-photo-747964.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500)
