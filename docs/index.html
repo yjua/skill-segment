@@ -7,6 +7,7 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
   <style>
     section.cover.has-mask .mask{
       opacity: .8;
@@ -17,12 +18,17 @@
   </style>
 </head>
 <body>
+  <nav>
+    <a href="#/">片段</a>
+    <a href="#/algorithm/">算法</a>
+  </nav>
   <div id="app"></div>
   <script>
     window.$docsify = {
       name: '代码片段',
       repo: 'http://github.com/yjua/skill-segment/',
       loadSidebar: true,
+      loadNavbar: true,
       subMaxLevel: 2,
       coverpage: true,
       count:{
@@ -44,7 +50,9 @@
           var footer = [
             '<hr/>',
             '<footer>',
-            '<span>@copyright '+year+' Power by docsify',
+            '<span>@copyright '+year+' Power by docsify ',
+            '<br/>',
+            'author by YJua',
             '</footer>'
           ].join('')
           hook.afterEach(function (html, next) {
@@ -58,6 +66,8 @@
   <script src="//unpkg.com/docsify-copy-code"></script>
   <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
   <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+  <!-- CDN files for docsify-katex -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-katex@latest/dist/docsify-katex.js"></script>  
 
 </body>
 </html>
