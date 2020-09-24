@@ -233,3 +233,46 @@ b = a-b;
 a = a-b;
 ```
 
+
+
+## 防抖和节流
+
+```javascript
+//防抖  如果在单位时间内再次被触发，则重新计时
+function debounce(func, wait){
+    let timeout;
+    return function(){
+        if(timeout){
+            clearTimeout(timeout)
+        }
+        timeout = setTimeout(() => {
+            func.apply(this, arguments)
+        }, wait)
+    }
+}
+
+//节流  单位时间内 只触发一次
+function throttle(func, wait){
+    let timeout;
+    return function(){
+        if(!timeout){
+            timeout = setTimeout(() => {
+                timeout = null;
+                func.apply(this, arguments)
+            }, wait)
+        }
+    }
+}
+
+// 使用
+function sayHi(){
+  console.log('hi')
+}
+
+let d = debounce(sayHi,2000)
+let t = throttle(sayHi,2000)
+
+d()
+t()
+```
+
